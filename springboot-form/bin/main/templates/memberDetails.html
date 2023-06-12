@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="default.css">
+</head>
+<body>
+	<h1>[ 회원정보 상세 ]</h1>
+	<table th:object="${member}">
+		<tr>
+			<th>아이디</th>
+			<td><input type="text" th:field="*{id}" disabled="disabled"></td>
+		</tr>
+		<tr>
+			<th>이름</th>
+			<td><input type="text" th:field="*{name}" disabled="disabled"></td>
+		</tr>
+		<tr>
+			<td><span th:each="gender : ${genderTypes}"> <input
+					type="radio" th:field="*{gender}" th:value="${gender.name()}"
+					disabled="disabled"> <label th:for="${#ids.prev('gender')}"
+					th:text=${gender.description}></label>
+			</span></td>
+		</tr>
+		<tr>
+			<th>생년월일</th>
+			<td><input type="date" th:field="*{birth}" disabled="disabled"></td>
+		</tr>
+		<tr>
+			<th>취미</th>
+			<td><span th:each="hobby : ${hobbies}"> <input
+					type="checkbox" th:field="*{hobbies}" th:value="${hobby.key}"
+					disabled="disabled"> <label
+					th:for="${#ids.prev('hobbies')}" th:text=${hobby.value}></label>
+			</span></td>
+		</tr>
+		<tr>
+			<th>도시</th>
+			<td><select th:field="*{city}" disabled="disabled">
+					<option value="">도시를 선택하세요.</option>
+					<option th:each="cityCode : ${cityCodes}"
+						th:value="${cityCode.code}" th:text="${cityCode.displayName}"></option>
+			</select></td>
+		</tr>
+	</table>
+	<div>
+		<input type="button"
+			th:onclick="|location.href='@{/updateForm(id=${member.id})}'|"
+			value="수정하기"> <input type="button"
+			th:onclick="|location.href='@{/remove(id=${member.id})}'|"
+			value="삭제하기"> <input type="button"
+			th:onclick="|location.href='/members'|" value="목록으로">
+	</div>
+</body>
+</html>

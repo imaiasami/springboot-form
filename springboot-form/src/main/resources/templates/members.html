@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="default.css">
+</head>
+<body>
+	<h1>[ 회원 리스트 ]</h1>
+	<input type="button" onclick="location.href='/joinForm'" value="회원가입">
+	<p>
+	<table>
+		<tr>
+			<th>No.</th>
+			<th>ID</th>
+			<th>NAME</th>
+		</tr>
+		<th:block th:each="member, memberStat : ${members}">
+			<tr>
+				<td th:text="${memberStat.count}"></td>
+				<td th:text="${member.id}"></td>
+				<td><a th:href="@{/member(id=${member.id})}"><span
+						th:text="${member.name}"></span></a></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>
